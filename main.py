@@ -32,14 +32,39 @@ max_carbs = 0
 
 def add_button_clicked():
     def add_item():
+        def askWeight(): 
+            def grams_submitted():
+                weight = float(entry.get()) / 100
+                name = item.split(" - ")[0]
+                kcal = float(item.split(" - ")[1].split("kcal")[0])
+                prot = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[0])
+                carb = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[1])
+                fat = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[2].split("g")[0])
+                print(name)
+                print(kcal)
+                print(prot)
+                print(carb)
+                print(fat)
+                tempitem = MenuItem(name, kcal * weight, prot * weight, carb * weight, fat * weight)
+                main_listbox.insert(tk.END, tempitem)
+                update_totals()
+                add_window.destroy()
+                askweight_window.destroy()
+            askweight_window = tk.Tk()
+            askweight_window.title("Grams Input")
+
+            label = tk.Label(askweight_window, text="Enter grams:")
+            label.pack()
+
+            entry = tk.Entry(askweight_window)
+            entry.pack()
+
+            submit_button = tk.Button(askweight_window, text="Submit", command=grams_submitted)
+            submit_button.pack()
         selected_index = listbox.curselection()
         if selected_index:
             item = listbox.get(selected_index)
-            confirmation = messagebox.askyesno("Confirmation", f"Are you sure you want to add '{item}' to the day?")
-            if confirmation:
-                main_listbox.insert(tk.END, item)
-                update_totals()
-                add_window.destroy()
+            askWeight()
 
     def filter_items(event=None):
         search_term = search_entry.get().lower()
@@ -281,10 +306,10 @@ def update_totals():
     save_button.config(state=tk.NORMAL)
     for index in range(main_listbox.size()):
         item = main_listbox.get(index).split(" - ")[1]
-        total_calories += int(item.split("kcal")[0])
-        total_protein += int(item.split(", ")[1].split("g")[0])
-        total_carbs += int(item.split(", ")[2].split("g")[0])
-        total_fat += int(item.split(", ")[3].split("g")[0])
+        total_calories += float(item.split("kcal")[0])
+        total_protein += float(item.split(", ")[1].split("g")[0])
+        total_carbs += float(item.split(", ")[2].split("g")[0])
+        total_fat += float(item.split(", ")[3].split("g")[0])
 
     calorie_text.config(text=f"{total_calories}/{ms[0].calories}kcal")
     calorie_progress['maximum'] = ms[0].calories
