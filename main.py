@@ -54,8 +54,9 @@ def add_button_clicked():
 
     mycursor.execute("SELECT * FROM main")
     myresult = mycursor.fetchall()
+    print(myresult)
     for x in myresult:
-        item_list.append(MenuItem(x[1], int(x[2]), int(x[3]), int(x[4]), int(x[5])))
+        item_list.append(MenuItem(x[1], int(x[3]), int(x[2]), int(x[4]), int(x[5])))
 
     search_label = tk.Label(add_window, text="Search:")
     search_label.pack(side=tk.TOP, padx=5, pady=5)
