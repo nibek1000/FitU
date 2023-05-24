@@ -54,7 +54,6 @@ def add_button_clicked():
 
     mycursor.execute("SELECT * FROM main")
     myresult = mycursor.fetchall()
-    print(myresult)
     for x in myresult:
         item_list.append(MenuItem(x[1], int(x[3]), int(x[2]), int(x[4]), int(x[5])))
 
@@ -181,6 +180,57 @@ def open_set_macro_window():
         submit_button = tk.Button(window, text="Submit", command=calculate_bmi)
         submit_button.pack()
 
+
+    def setCustom():
+        def submit_custom_macro():
+            ms.append(macroSet(float(kcal_entry.get()), float(fat_entry.get()), float(protein_entry.get()), float(carbs_entry.get())))
+
+            calorie_text.config(text=f"0/{float(kcal_entry.get())}kcal")
+            protein_label.config(text=f"0/{float(protein_entry.get())}g protein")
+            carb_label.config(text=f"0/{float(carbs_entry.get())}g carbs")
+            fat_label.config(text=f"0/{float(fat_entry.get())}g fat")
+            add_button.config(state=tk.NORMAL)
+            remove_button.config(state=tk.NORMAL)
+            clear_button.config(state=tk.NORMAL)
+            load_button.config(state=tk.DISABLED)
+            save_button.config(state=tk.NORMAL)
+            nextDay_button.config(state=tk.DISABLED)
+            prevDay_button.config(state=tk.DISABLED)
+            set_macro_button.config(state=tk.DISABLED)
+            update_totals()
+            set_macro_window.destroy()
+            custom_macro_window.destroy()
+        custom_macro_window = tk.Tk()
+        custom_macro_window.title("Custom macro")
+
+        # Kcal input
+        kcal_label = tk.Label(custom_macro_window, text="Kcal:")
+        kcal_label.pack()
+        kcal_entry = tk.Entry(custom_macro_window)
+        kcal_entry.pack()
+
+        # Protein input
+        protein_label = tk.Label(custom_macro_window, text="Protein:")
+        protein_label.pack()
+        protein_entry = tk.Entry(custom_macro_window)
+        protein_entry.pack()
+
+        # Carbs input
+        carbs_label = tk.Label(custom_macro_window, text="Carbs:")
+        carbs_label.pack()
+        carbs_entry = tk.Entry(custom_macro_window)
+        carbs_entry.pack()
+
+        # Fat input
+        fat_label = tk.Label(custom_macro_window, text="Fat:")
+        fat_label.pack()
+        fat_entry = tk.Entry(custom_macro_window)
+        fat_entry.pack()
+
+        # Submit button
+        submit_button = tk.Button(custom_macro_window, text="Submit", command=submit_custom_macro)
+        submit_button.pack()
+
     set_macro_window = tk.Toplevel(root)
     set_macro_window.title("Set Macro")
     set_macro_window.geometry("300x300")
@@ -213,8 +263,14 @@ def open_set_macro_window():
     growth_entry = tk.Entry(set_macro_window)
     growth_entry.pack()
 
-    save_macro_button = tk.Button(set_macro_window, text="Save", command=save_macro)
+    bottom_buttons = tk.Frame(set_macro_window)
+    bottom_buttons.pack(side=tk.LEFT, expand=True, fill=tk.X)
+
+    save_macro_button = tk.Button(bottom_buttons, text="Save", command=save_macro)
     save_macro_button.pack()
+
+    set_macro_button = tk.Button(bottom_buttons, text="Set custom", command=setCustom)
+    set_macro_button.pack()
 
 
 def update_totals():
