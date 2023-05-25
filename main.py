@@ -37,9 +37,9 @@ def add_button_clicked():
                 weight = float(entry.get()) / 100
                 name = item.split(" - ")[0]
                 kcal = float(item.split(" - ")[1].split("kcal")[0])
-                prot = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[0])
-                carb = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[1])
-                fat = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[2].split("g")[0])
+                carb = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[0])
+                fat = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[1])
+                prot = float(item.split(" - ")[1].split("kcal, ")[1].split("g, ")[2].split("g")[0])
                 print(name)
                 print(kcal)
                 print(prot)
