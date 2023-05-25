@@ -136,9 +136,9 @@ def open_set_macro_window():
         elif gender.lower() == "female":
             max_calories = round((10 * weight) + (6.25 * growth) - (5 * age) - 161)
 
-        max_protein = round((max_calories / 10) * (21.6 / 100))
-        max_carbs = round((max_calories / 10) * (51.4 / 100))
-        max_fat = round((max_calories / 10) * (27 / 100))
+        max_protein = round(weight * 1.5)
+        max_fat = round(max_calories * (25 / 100) * 0.1)
+        max_carbs = round((max_calories - max_fat * 9 - max_protein * 4)/4)
         
         ms.append(macroSet(max_calories, max_fat, max_protein, max_carbs))
 
