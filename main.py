@@ -94,7 +94,7 @@ def add_button_clicked():
     for item in item_list:
         listbox.insert(tk.END, str(item))
     listbox.pack(side=tk.TOP, fill=tk.BOTH)
-    search_label = tk.Label(add_window, text="Aktualnie w bazie mamy: " + str(len(item_list)) + " produktów")
+    search_label = tk.Label(add_window, text="We have " + str(len(item_list)) + " products in database")
     search_label.pack(side=tk.TOP, padx=5, pady=5)
     add_button = tk.Button(add_window, text="Add to Day", command=add_item)
     add_button.pack(side=tk.BOTTOM, padx=5, pady=5)
